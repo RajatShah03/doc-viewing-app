@@ -32,7 +32,9 @@ app.get("/api", (req, res) => {
 app.post("/api", upload.single("file"), (req, res) => {
   console.log({ body: req.file });
 
-  res.json({ url: `http://localhost:8000/${req.file.originalname}` });
+  res.json({
+    url: `https://doc-viewer-server.herokuapp.com/${req.file.originalname}`,
+  });
 });
 
 app.listen(process.env.PORT || 3001, () => {
