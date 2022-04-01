@@ -35,6 +35,6 @@ app.post("/api", upload.single("file"), (req, res) => {
   res.json({ url: `http://localhost:8000/${req.file.originalname}` });
 });
 
-app.listen(process.env.NODE_PORT, () => {
+app.listen(process.env.NODE_PORT || 3001, () => {
   console.log("Listening on port 8000");
 });
