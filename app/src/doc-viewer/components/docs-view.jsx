@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import printJs from "print-js";
 import DocumentRenderer from "./document-renderer";
 
+/**
+ * Docs view
+ */
 function DocsView({ useSelectedDoc }) {
   const [selectedDoc] = useSelectedDoc;
   const [doc, setDoc] = useState(null);
