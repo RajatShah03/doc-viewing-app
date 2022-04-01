@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const fakeDoc = "https://calibre-ebook.com/downloads/demos/demo.docx";
+const remoteDoc = "https://calibre-ebook.com/downloads/demos/demo.docx";
 
 const DocRenderer = ({ data, blob }) => {
   const [url, setUrl] = useState("");
+  const [useRemote, setUseRemote] = useState(false);
 
   useEffect(() => {
     const file = new File([blob], "abc.docx", {
@@ -26,12 +27,22 @@ const DocRenderer = ({ data, blob }) => {
   }, [blob]);
 
   return (
-    <div style={{ width: "100%", height: "100%", overflowX: "auto" }}>
+    <div style={{ width: "100%", height: "78%" }}>
+      <div>
+        <input
+          type="checkbox"
+          value={useRemote}
+          onChange={() => setUseRemote(!useRemote)}
+        />
+        <span>Use Remote document</span>
+      </div>
       {url && (
         <iframe
           id="doc-frame"
           title="Doc-Previewer"
-          src={`https://view.officeapps.live.com/op/embed.aspx?src=${url}`}
+          src={`https://view.officeapps.live.com/op/embed.aspx?src=${
+            useRemote ? remoteDoc : url
+          }`}
           width="100%"
           height="100%"
           frameBorder="0"

@@ -7,9 +7,8 @@ const TxtRenderer = ({ data }) => {
         id="text-frame"
         style={{
           width: "100%",
-          minHeight: "100%",
+          minHeight: "78%",
           maxWidth: "calc(100% - 120px)",
-          overflowX: "auto",
           border: "1px dashed #ddd",
         }}
         data={data}

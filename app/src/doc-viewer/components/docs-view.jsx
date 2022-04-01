@@ -8,26 +8,31 @@ import DocumentRenderer from "./document-renderer";
  */
 function DocsView({ useSelectedDoc }) {
   const [selectedDoc] = useSelectedDoc;
+  const [loading, setLoading] = useState(false);
   const [doc, setDoc] = useState(null);
   const [blob, setBlob] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://doc-viewer-server.herokuapp.com/api?type=${selectedDoc.ext}`
-      )
-      .then((res) => {
-        console.log({
-          res: res.data,
-          buf: res.data.body,
+    if (selectedDoc.ext) {
+      setLoading(true);
+      axios
+        .get(
+          `https://doc-viewer-server.herokuapp.com/api?type=${selectedDoc.ext}`
+        )
+        .then((res) => {
+          console.log({
+            res: res.data,
+            buf: res.data.body,
+          });
+          const url = URL.createObjectURL(
+            new Blob([new Uint8Array(res.data.body.data).buffer])
+          );
+          console.log({ url });
+          setDoc(url);
+          setBlob(new Blob([new Uint8Array(res.data.body.data).buffer]));
+          setLoading(false);
         });
-        const url = URL.createObjectURL(
-          new Blob([new Uint8Array(res.data.body.data).buffer])
-        );
-        console.log({ url });
-        setDoc(url);
-        setBlob(new Blob([new Uint8Array(res.data.body.data).buffer]));
-      });
+    }
   }, [selectedDoc.ext]);
 
   const handlePrint = (event) => {
@@ -53,7 +58,9 @@ function DocsView({ useSelectedDoc }) {
   };
 
   return (
-    <div style={{ width: "70%", padding: "80px 40px", position: "relative" }}>
+    <div style={{ width: "70%", padding: "20px 40px", position: "relative" }}>
+      <h3>Select a document</h3>
+      {loading && <div>Loading...</div>}
       {selectedDoc && doc ? (
         <>
           <DocumentRenderer type={selectedDoc.ext} data={doc} blob={blob} />
@@ -70,9 +77,7 @@ function DocsView({ useSelectedDoc }) {
             <button onClick={handlePrint}>P</button>
           </div>
         </>
-      ) : (
-        <div>Select a document</div>
-      )}
+      ) : null}
     </div>
   );
 }
