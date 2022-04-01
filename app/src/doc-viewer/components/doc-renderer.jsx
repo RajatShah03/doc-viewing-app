@@ -17,7 +17,7 @@ const DocRenderer = ({ data, buffer }) => {
     formData.append("name", "abc.docx");
     formData.append("file", file);
 
-    fetch("http://localhost:8000/api", {
+    fetch("https://doc-viewer-server.herokuapp.com/api", {
       method: "POST",
       body: formData,
     })
@@ -31,7 +31,7 @@ const DocRenderer = ({ data, buffer }) => {
         <iframe
           id="doc-frame"
           title="Doc-Previewer"
-          src={`https://view.officeapps.live.com/op/embed.aspx?src=${fakeDoc}`}
+          src={`https://view.officeapps.live.com/op/embed.aspx?src=${url}`}
           width="100%"
           height="100%"
           frameBorder="0"

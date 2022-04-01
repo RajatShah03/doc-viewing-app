@@ -10,7 +10,9 @@ function DocsView({ useSelectedDoc }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api?type=${selectedDoc.ext}`)
+      .get(
+        `https://doc-viewer-server.herokuapp.com/api?type=${selectedDoc.ext}`
+      )
       .then((res) => {
         console.log({
           res: res.data,
