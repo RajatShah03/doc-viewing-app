@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 
 const fakeDoc = "https://calibre-ebook.com/downloads/demos/demo.docx";
 
-const DocRenderer = ({ data, buffer }) => {
+const DocRenderer = ({ data, blob }) => {
   const [url, setUrl] = useState("");
 
   useEffect(() => {
-    const file = new File([buffer], "abc.docx", {
+    const file = new File([blob], "abc.docx", {
       type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
 
@@ -16,14 +16,14 @@ const DocRenderer = ({ data, buffer }) => {
     const formData = new FormData();
     formData.append("name", "abc.docx");
     formData.append("file", file);
-
+    // https://doc-viewer-server.herokuapp.com
     fetch("https://doc-viewer-server.herokuapp.com/api", {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((res) => setUrl(res.url));
-  }, [buffer]);
+  }, [blob]);
 
   return (
     <div style={{ width: "100%", height: "100%", overflowX: "auto" }}>

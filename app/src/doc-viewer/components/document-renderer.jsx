@@ -12,7 +12,7 @@ const DOC_FORMAT = ["doc", "docx"];
 
 const TXT_FORMAT = ["txt"];
 
-const DocumentRenderer = ({ type, data, buffer }) => {
+const DocumentRenderer = ({ type, data, blob }) => {
   if (IMG_FORMAT.includes(type)) {
     return <ImgRenderer data={data} />;
   } else if (TXT_FORMAT.includes(type)) {
@@ -20,7 +20,7 @@ const DocumentRenderer = ({ type, data, buffer }) => {
   } else if (PDF_FORMAT.includes(type)) {
     return <PDFRenderer data={data} />;
   } else if (DOC_FORMAT.includes(type)) {
-    return <DocRenderer data={data} buffer={buffer} />;
+    return <DocRenderer data={data} blob={blob} />;
   }
   return <div>{type} not supported</div>;
 };
