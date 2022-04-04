@@ -72,7 +72,15 @@ function DocsView({ useSelectedDoc }) {
               border: "1px solid grey",
             }}
           >
-            <button onClick={() => shareFiles(new File([blob], "test.jpg"))}>
+            <button
+              onClick={() =>
+                shareFiles(
+                  new File([blob], "test.jpg", {
+                    type: "image/jpeg",
+                  })
+                )
+              }
+            >
               Share
             </button>
             <button>
