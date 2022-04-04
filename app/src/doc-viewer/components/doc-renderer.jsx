@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const remoteDoc = "https://calibre-ebook.com/downloads/demos/demo.docx";
@@ -12,12 +11,9 @@ const DocRenderer = ({ data, blob }) => {
       type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     });
 
-    console.log({ file });
-
     const formData = new FormData();
     formData.append("name", "abc.docx");
     formData.append("file", file);
-    // https://doc-viewer-server.herokuapp.com
     fetch("https://doc-viewer-server.herokuapp.com/api", {
       method: "POST",
       body: formData,
@@ -36,13 +32,13 @@ const DocRenderer = ({ data, blob }) => {
         />
         <span>Use Remote document</span>
       </div>
-      {url && (
+      {/* {url && (
         <iframe
           id="doc-frame"
           title="Doc-Previewer"
-          src={`https://view.officeapps.live.com/op/embed.aspx?src=${
+          src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(
             useRemote ? remoteDoc : url
-          }`}
+          )}`}
           width="100%"
           height="100%"
           frameBorder="0"
@@ -57,6 +53,17 @@ const DocRenderer = ({ data, blob }) => {
           </a>
           .
         </iframe>
+      )} */}
+      {url && (
+        <iframe
+          title="Doc-Previewer"
+          className="doc"
+          width={500}
+          height={400}
+          src={`https://docs.google.com/gview?url=${encodeURIComponent(
+            useRemote ? remoteDoc : url
+          )}&embedded=true`}
+        ></iframe>
       )}
     </div>
   );

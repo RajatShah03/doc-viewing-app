@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import printJs from "print-js";
 import DocumentRenderer from "./document-renderer";
+import { shareFiles } from "../utils/share";
 
 /**
  * Docs view
@@ -27,7 +28,6 @@ function DocsView({ useSelectedDoc }) {
           const url = URL.createObjectURL(
             new Blob([new Uint8Array(res.data.body.data).buffer])
           );
-          console.log({ url });
           setDoc(url);
           setBlob(new Blob([new Uint8Array(res.data.body.data).buffer]));
           setLoading(false);
@@ -72,9 +72,19 @@ function DocsView({ useSelectedDoc }) {
               border: "1px solid grey",
             }}
           >
-            <button>S</button>
-            <button>D</button>
-            <button onClick={handlePrint}>P</button>
+            <button onClick={() => shareFiles(new File([blob], "test.jpg"))}>
+              Share
+            </button>
+            <button>
+              <a
+                href={doc}
+                download={selectedDoc.fn}
+                style={{ textDecoration: "none" }}
+              >
+                Download
+              </a>
+            </button>
+            <button onClick={handlePrint}>Print</button>
           </div>
         </>
       ) : null}

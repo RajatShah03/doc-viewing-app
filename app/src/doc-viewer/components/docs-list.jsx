@@ -58,9 +58,7 @@ const DocsList = ({ useSelectedDoc }) => {
             style={{
               display: "flex",
               border:
-                selectedDoc.id === doc.id
-                  ? "1.5px solid #bbb"
-                  : "1.5px solid #ddd",
+                selectedDoc.id === doc.id ? "2px solid #bbb" : "2px solid #ddd",
               margin: "8px 0",
               height: "70px",
               borderRadius: "6px",
@@ -80,7 +78,7 @@ const DocsList = ({ useSelectedDoc }) => {
                 width: "20%",
               }}
             >
-              {doc.type.toUpperCase()}
+              {doc.ext.toUpperCase()}
             </div>
             <div
               style={{
